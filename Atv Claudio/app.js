@@ -93,10 +93,111 @@ function exercicio5() {
   alert(`O resultado é: ${resultado}`)
 }
 
-// Exercício 6 - Data por Extenso
+//Exercício 6 - Data por extensão
 function exercicio6() {
   let data = prompt("Digite a data no formato dd/mm/aaaa:")
-  let [dia, mes, ano] = data.split("/")
-  let meses = ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"]
-  alert(`${dia} de ${meses[parseInt(mes)-1]} de ${ano}`)
+
+  let partes = data.split("/")
+  if (partes.length !== 3) {
+    alert("Formato inválido. Use dd/mm/aaaa.")
+    return
+  }
+
+  let diaTexto = partes[0]
+  let mesTexto = partes[1]
+  let anoTexto = partes[2]
+
+  let dia = parseInt(diaTexto)
+  let mes = parseInt(mesTexto)
+  let ano = parseInt(anoTexto)
+
+  if (isNaN(dia) || isNaN(mes) || isNaN(ano)) {
+    alert("A data deve conter apenas números.")
+    return
+  }
+
+  if (mes < 1 || mes > 12) {
+    alert("O mês deve estar entre 1 e 12.")
+    return
+  }
+
+  let diasNoMes = diasDoMes(mes, ano)
+
+  if (dia < 1 || dia > diasNoMes) {
+    alert("O dia informado não é válido para este mês.")
+    return
+  }
+
+  let nomeMes = nomeDoMes(mes)
+
+  alert(`${dia} de ${nomeMes} de ${ano}`)
 }
+
+function diasDoMes(mes, ano) {
+  if (mes === 1) {
+    return 31
+  } else if (mes === 2) {
+    if (anoBissexto(ano)) {
+      return 29
+    } else {
+      return 28
+    }
+  } else if (mes === 3) {
+    return 31
+  } else if (mes === 4) {
+    return 30
+  } else if (mes === 5) {
+    return 31
+  } else if (mes === 6) {
+    return 30
+  } else if (mes === 7) {
+    return 31
+  } else if (mes === 8) {
+    return 31
+  } else if (mes === 9) {
+    return 30
+  } else if (mes === 10) {
+    return 31
+  } else if (mes === 11) {
+    return 30
+  } else if (mes === 12) {
+    return 31
+  }
+}
+
+function nomeDoMes(mes) {
+  if (mes === 1) {
+    return "janeiro"
+  } else if (mes === 2) {
+    return "fevereiro"
+  } else if (mes === 3) {
+    return "março"
+  } else if (mes === 4) {
+    return "abril"
+  } else if (mes === 5) {
+    return "maio"
+  } else if (mes === 6) {
+    return "junho"
+  } else if (mes === 7) {
+    return "julho"
+  } else if (mes === 8) {
+    return "agosto"
+  } else if (mes === 9) {
+    return "setembro"
+  } else if (mes === 10) {
+    return "outubro"
+  } else if (mes === 11) {
+    return "novembro"
+  } else if (mes === 12) {
+    return "dezembro"
+  }
+}
+
+function anoBissexto(ano) {
+  if ((ano % 4 === 0 && ano % 100 !== 0) || ano % 400 === 0) {
+    return true
+  } else {
+    return false
+  }
+}
+
